@@ -1,0 +1,13 @@
+<suite name="JReport Test Suite" configfailurepolicy="continue">
+
+    <test name="OssAPISanityTest" preserve-order="true">
+        <classes>
+            <class name = "jreport.test.TestNgTest"/>
+        </classes>
+    </test>
+
+    <listeners>
+        <listener class-name="jreport.listener.TestNgReportListener"/>
+        <listener class-name="jreport.listener.TestNgTestStatusListener"/>
+    </listeners>
+</suite>
