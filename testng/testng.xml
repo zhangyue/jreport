@@ -1,6 +1,6 @@
 <suite name="JReport Test Suite" configfailurepolicy="continue">
 
-    <test name="OssAPISanityTest" preserve-order="true">
+    <test name="JReport Test" preserve-order="true">
         <classes>
             <class name = "jreport.test.TestNgTest"/>
         </classes>
