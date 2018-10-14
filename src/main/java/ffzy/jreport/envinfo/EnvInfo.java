@@ -1,4 +1,4 @@
-package jreport.envinfo;
+package ffzy.jreport.envinfo;
 
 import java.util.ArrayList;
 import java.util.List;

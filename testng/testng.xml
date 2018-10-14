@@ -2,12 +2,12 @@
 
     <test name="JReport Test" preserve-order="true">
         <classes>
-            <class name = "jreport.test.TestNgTest"/>
+            <class name = "TestNgTest"/>
         </classes>
     </test>
 
     <listeners>
-        <listener class-name="jreport.listener.TestNgReportListener"/>
-        <listener class-name="jreport.listener.TestNgTestStatusListener"/>
+        <listener class-name="ffzy.jreport.listener.TestNgReportListener"/>
+        <listener class-name="ffzy.jreport.listener.TestNgTestStatusListener"/>
     </listeners>
 </suite>

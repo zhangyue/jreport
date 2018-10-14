@@ -1,9 +1,9 @@
 /**
  * Created by Zhang Yue on 2/11/2018
  */
-package jreport;
+package ffzy.jreport;
 
-import jreport.util.ThreadUtil;
+import ffzy.jreport.util.ThreadUtil;
 import org.dom4j.DocumentHelper;
 import org.dom4j.io.HTMLWriter;
 import org.dom4j.io.OutputFormat;

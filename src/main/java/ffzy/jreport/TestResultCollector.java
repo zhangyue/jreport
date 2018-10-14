@@ -1,7 +1,7 @@
 /**
  * Created by Zhang Yue on 2/11/2018
  */
-package jreport;
+package ffzy.jreport;
 
 import java.util.Map;
 

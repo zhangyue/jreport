@@ -1,4 +1,4 @@
-package jreport.util;
+package ffzy.jreport.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

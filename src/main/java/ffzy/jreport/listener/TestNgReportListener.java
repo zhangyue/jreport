@@ -1,11 +1,15 @@
 /**
  * Created by Zhang Yue on 2/4/2018
  */
-package jreport.listener;
+package ffzy.jreport.listener;
 
+import ffzy.jreport.HtmlTestReport;
+import ffzy.jreport.TestNgResultCollector;
+import ffzy.jreport.TestPackageResult;
+import ffzy.jreport.TestReport;
 import jreport.*;
-import jreport.envinfo.EnvInfoProvider;
-import jreport.util.ThreadUtil;
+import ffzy.jreport.envinfo.EnvInfoProvider;
+import ffzy.jreport.util.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.*;

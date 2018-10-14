@@ -1,9 +1,9 @@
 /**
  * Created by Zhang Yue on 2/14/2018
  */
-package jreport.listener;
+package ffzy.jreport.listener;
 
-import jreport.util.ThreadUtil;
+import ffzy.jreport.util.ThreadUtil;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
