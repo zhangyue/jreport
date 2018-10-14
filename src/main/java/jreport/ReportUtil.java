@@ -39,12 +39,22 @@ public class ReportUtil {
     }
 
     public static String generateDuration(long startTimeInMillis, long endTimeInMillis) {
-        long duration = (endTimeInMillis - startTimeInMillis) / 1000;
-        if((endTimeInMillis - startTimeInMillis) % 1000 >= 400) {
-            return duration + 1 + " s";
+        float durationMillis = endTimeInMillis - startTimeInMillis;
+        float durationSeconds = durationMillis / 1000;
+        String duration;
+
+        if(durationMillis < 1000) {
+            duration = (int)durationMillis + " ms";
+        } else if(durationMillis < 10000) {
+            duration = String.format("%.2f", durationSeconds) + " s";
         } else {
-            return duration + " s";
+            if(durationMillis % 1000 >= 400) {
+                durationSeconds += 1;
+            }
+            duration = (int)durationSeconds + " s";
         }
+
+        return duration;
     }
 
     public static String toPrettyHtml(String str) {
