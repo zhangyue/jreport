@@ -59,8 +59,8 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
                 DateUtil.FORMAT_SIMPLE, TimeZone.getTimeZone("GMT+8"));
 
         StringBuilder body = new StringBuilder();
-        body.append("<h3>" + getResultSummary() + "</h3>\n");
-        body.append("<h5>Report generated at " + currentTimeStr + "</h5>\n");
+        body.append("<h3>").append(getResultSummary()).append("</h3>\n");
+        body.append("<h5>Report generated at ").append(currentTimeStr).append("</h5>\n");
         // Place holder for email.
         body.append("<!--<p class='info'><a href=#>See this report in web browser</a></p>-->\n");
         body.append(generateSummary());
@@ -94,11 +94,11 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
         sb.append("<hr align=left width=1200>\n");
 
         sb.append("<table border=0 width=1200 cellspacing=1>\n");
-        sb.append(generateEnvLine("IP", envInfo.getIpInfo(), true));
-        sb.append(generateEnvLine("Endpoint", envInfo.getEndpointInfo(), true));
+        sb.append(generateEnvLine("IP", envInfo == null ? null : envInfo.getIpInfo(), true));
+        sb.append(generateEnvLine("Endpoint", envInfo == null ? null : envInfo.getEndpointInfo(), true));
         // User info is not necessary for now.
 //        sb.append(generateEnvLine("User", envInfo.getUserInfo(), false));
-        sb.append(generateEnvLine("Configuration", envInfo.getConfigInfo()));
+        sb.append(generateEnvLine("Configuration", envInfo == null ? null : envInfo.getConfigInfo()));
         sb.append(generateEnvLine("JSS Branch", "$jss_branch"));
         sb.append(generateEnvLine("Test Journal", "<a href='" + TEST_JOURNAL_PATH_TO_FILE + "'>jss_test.log</a>"));
         sb.append(generateEnvLine("CI Test Result Archive", "<a href='" + TEST_RESULT_ARCHIVE_LINK + "' target=_blank>" + TEST_RESULT_ARCHIVE_DISPLAY + "</a>"));
@@ -116,7 +116,11 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
         if(singleRow) {
             sb.append("<tr>\n");
             sb.append("<td class='th'>").append(name).append("</td>\n");
-            sb.append("<td>").append(String.join(" | ", values)).append("</td>\n");
+            if(values == null) {
+                sb.append("<td>null</td>\n");
+            } else {
+                sb.append("<td>").append(String.join(" | ", values)).append("</td>\n");
+            }
             sb.append("</tr>\n");
         } else {
             for (int i = 0; i < values.size(); i++) {
@@ -133,6 +137,9 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
     }
 
     private String generateEnvLine(String name, Map<String, String> values) {
+        if(values == null) {
+            return "<tr><td></td></tr>\n";
+        }
         StringBuilder sb = new StringBuilder();
 
         boolean isName = true;
@@ -229,7 +236,7 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
                             testPackageResult.getStartTimeInMillis(),
                             DateUtil.FORMAT_SIMPLE, TimeZone.getTimeZone("GMT+8")))
                     .append("</td>\n");
-            sb.append("</tr>\n");;
+            sb.append("</tr>\n");
             sb.append("</table>\n");
             sb.append("<hr align=left width=1200>\n");
 
