@@ -7,7 +7,6 @@ import ffzy.jreport.HtmlTestReport;
 import ffzy.jreport.TestNgResultCollector;
 import ffzy.jreport.TestPackageResult;
 import ffzy.jreport.TestReport;
-import jreport.*;
 import ffzy.jreport.envinfo.EnvInfoProvider;
 import ffzy.jreport.util.ThreadUtil;
 import org.slf4j.Logger;

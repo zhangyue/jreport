@@ -2,7 +2,7 @@
 
     <test name="JReport Test" preserve-order="true">
         <classes>
-            <class name = "TestNgTest"/>
+            <class name = "ffzy.jreport.test.TestNgTest"/>
         </classes>
     </test>
 
