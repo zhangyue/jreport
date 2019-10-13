@@ -1,9 +1,9 @@
-package pers.yue.util;
+package pers.yue.common.util;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pers.yue.test.jreport.exceptions.runtime.InvalidFormatRuntimeException;
+import pers.yue.exceptions.runtime.InvalidFormatRuntimeException;
 
 /**
  * Created by zhangyue182 on 08/22/2018

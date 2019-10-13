@@ -4,9 +4,9 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pers.yue.test.jreport.exceptions.runtime.TestRunException;
-import pers.yue.util.FileUtil;
-import pers.yue.util.ThreadUtil;
+import pers.yue.exceptions.runtime.TestRunException;
+import pers.yue.common.util.FileUtil;
+import pers.yue.common.util.ThreadUtil;
 
 import java.io.*;
 

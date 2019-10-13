@@ -9,8 +9,8 @@ import org.dom4j.io.OutputFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
-import pers.yue.test.jreport.exceptions.runtime.TestRunException;
-import pers.yue.util.ThreadUtil;
+import pers.yue.exceptions.runtime.TestRunException;
+import pers.yue.common.util.ThreadUtil;
 
 import java.io.StringWriter;
 

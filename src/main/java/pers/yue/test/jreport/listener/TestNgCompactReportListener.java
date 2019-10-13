@@ -8,9 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.testng.IReporter;
 import org.testng.ISuite;
 import org.testng.xml.XmlSuite;
-import pers.yue.jreport.*;
 import pers.yue.test.jreport.*;
-import pers.yue.util.ThreadUtil;
+import pers.yue.common.util.ThreadUtil;
 
 import java.util.List;
 import java.util.Map;

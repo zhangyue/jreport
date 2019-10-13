@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pers.yue.test.jreport.envinfo.EnvInfo;
 import pers.yue.test.jreport.util.ReportUtil;
-import pers.yue.util.ThreadUtil;
+import pers.yue.common.util.ThreadUtil;
 import pers.yue.test.util.FileTestUtil;
-import pers.yue.util.StringUtil;
+import pers.yue.common.util.StringUtil;
 
 import java.io.File;
 import java.util.ArrayList;

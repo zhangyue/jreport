@@ -1,4 +1,4 @@
-package pers.yue.test.jreport.exceptions.runtime;
+package pers.yue.exceptions.runtime;
 
 /**
  * Created by zhangyue182 on 2019/05/10

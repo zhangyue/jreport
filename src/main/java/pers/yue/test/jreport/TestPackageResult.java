@@ -3,7 +3,7 @@
  */
 package pers.yue.test.jreport;
 
-import pers.yue.util.ThreadUtil;
+import pers.yue.common.util.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

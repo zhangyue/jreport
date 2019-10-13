@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
 import pers.yue.test.jreport.envinfo.EnvInfo;
 import pers.yue.test.jreport.util.ReportUtil;
-import pers.yue.util.ThreadUtil;
+import pers.yue.common.util.ThreadUtil;
 
 import java.util.ArrayList;
 import java.util.List;

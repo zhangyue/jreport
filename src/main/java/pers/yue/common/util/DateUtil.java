@@ -1,4 +1,4 @@
-package pers.yue.util;
+package pers.yue.common.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +21,7 @@ public class DateUtil {
     public static String FORMAT_Z = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static String FORMAT_SHORT = "yyyy-MM-dd";
     public static String FORMAT_S = "yyyyMMdd";
+    public static String FORMAT_SHORT_COMPACT = "yyyyMMdd-HHmmss.SSS";
     public static String FORMAT_SHORT_LIVE = "yyyyMMdd-HHmmss.SSS";
     public static String FORMAT_EXPIRES_DATE = "EEE MMM dd zzz HH:mm:ss yyyy";
 

@@ -3,7 +3,7 @@ package pers.yue.test.jreport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pers.yue.test.jreport.envinfo.EnvInfo;
-import pers.yue.util.ThreadUtil;
+import pers.yue.common.util.ThreadUtil;
 
 /**
  * Created by Zhang Yue on 5/12/2019

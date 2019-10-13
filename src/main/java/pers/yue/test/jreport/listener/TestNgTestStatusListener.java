@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-import pers.yue.util.ThreadUtil;
+import pers.yue.common.util.ThreadUtil;
 
 import java.io.File;
 import java.io.IOException;
