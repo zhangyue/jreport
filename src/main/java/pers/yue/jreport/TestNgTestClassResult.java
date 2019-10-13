@@ -1,7 +1,7 @@
 /**
  * Created by Zhang Yue on 2/11/2018
  */
-package ffzy.jreport;
+package pers.yue.jreport;
 
 import org.testng.ITestResult;
 

@@ -1,7 +1,7 @@
-package ffzy.jreport.test;
+package pers.yue.jreport.test;
 
-import ffzy.jreport.envinfo.EnvInfo;
-import ffzy.jreport.envinfo.EnvInfoProvider;
+import pers.yue.jreport.envinfo.EnvInfo;
+import pers.yue.jreport.envinfo.EnvInfoProvider;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 

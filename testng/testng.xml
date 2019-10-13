@@ -7,7 +7,7 @@
     </test>
 
     <listeners>
-        <listener class-name="ffzy.jreport.listener.TestNgReportListener"/>
-        <listener class-name="ffzy.jreport.listener.TestNgTestStatusListener"/>
+        <listener class-name="pers.yue.jreport.listener.TestNgReportListener"/>
+        <listener class-name="pers.yue.jreport.listener.TestNgTestStatusListener"/>
     </listeners>
 </suite>

@@ -1,9 +1,9 @@
 /**
  * Created by Zhang Yue on 2/11/2018
  */
-package ffzy.jreport;
+package pers.yue.jreport;
 
-import ffzy.jreport.util.ThreadUtil;
+import pers.yue.jreport.util.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.*;

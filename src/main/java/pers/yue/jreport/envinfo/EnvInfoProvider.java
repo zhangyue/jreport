@@ -1,4 +1,4 @@
-package ffzy.jreport.envinfo;
+package pers.yue.jreport.envinfo;
 
 public class EnvInfoProvider {
     private static EnvInfo envInfo;

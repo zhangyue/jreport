@@ -1,14 +1,14 @@
 /**
  * Created by Zhang Yue on 2/4/2018
  */
-package ffzy.jreport.listener;
+package pers.yue.jreport.listener;
 
-import ffzy.jreport.HtmlTestReport;
-import ffzy.jreport.TestNgResultCollector;
-import ffzy.jreport.TestPackageResult;
-import ffzy.jreport.TestReport;
-import ffzy.jreport.envinfo.EnvInfoProvider;
-import ffzy.jreport.util.ThreadUtil;
+import pers.yue.jreport.HtmlTestReport;
+import pers.yue.jreport.TestNgResultCollector;
+import pers.yue.jreport.TestPackageResult;
+import pers.yue.jreport.TestReport;
+import pers.yue.jreport.envinfo.EnvInfoProvider;
+import pers.yue.jreport.util.ThreadUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.*;

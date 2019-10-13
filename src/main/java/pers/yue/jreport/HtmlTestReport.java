@@ -1,11 +1,11 @@
 /**
  * Created by Zhang Yue on 2/11/2018
  */
-package ffzy.jreport;
+package pers.yue.jreport;
 
-import ffzy.jreport.envinfo.EnvInfo;
-import ffzy.jreport.util.DateUtil;
-import ffzy.jreport.util.ThreadUtil;
+import pers.yue.jreport.envinfo.EnvInfo;
+import pers.yue.jreport.util.DateUtil;
+import pers.yue.jreport.util.ThreadUtil;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
