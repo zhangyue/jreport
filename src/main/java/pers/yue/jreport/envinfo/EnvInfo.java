@@ -1,11 +1,11 @@
 package pers.yue.jreport.envinfo;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zhangyue182 on 07/03/2018
+ * Created by zhangyue182 on 2018/02/23
  */
 public class EnvInfo {
     private List<String> ipInfo;
@@ -15,27 +15,17 @@ public class EnvInfo {
     private List<String> userInfo;
     private Map<String, String> configInfo;
 
-    public EnvInfo(String ipInfo, String endpointInfo, String userInfo, Map<String, String> configInfo) {
-        List<String> ipInfoList = new ArrayList<>();
-        ipInfoList.add(ipInfo);
-
-        List<String> endpointInfoList = new ArrayList<>();
-        endpointInfoList.add(endpointInfo);
-
-        List<String> userInfoList = new ArrayList<>();
-        userInfoList.add(userInfo);
-
-        this.ipInfo = ipInfoList;
-        this.endpointInfo = endpointInfoList;
-        this.userInfo = userInfoList;
-        this.configInfo = configInfo;
-    }
-
-
     public EnvInfo(List<String> ipInfo, List<String> endpointInfo, List<String> userInfo, Map<String, String> configInfo) {
         this.ipInfo = ipInfo;
         this.endpointInfo = endpointInfo;
         this.userInfo = userInfo;
+        this.configInfo = configInfo;
+    }
+
+    public EnvInfo(String ipInfo, String endpointInfo, String userInfo, Map<String, String> configInfo) {
+        this.ipInfo = Collections.singletonList(ipInfo);
+        this.endpointInfo = Collections.singletonList(endpointInfo);
+        this.userInfo = Collections.singletonList(userInfo);
         this.configInfo = configInfo;
     }
 

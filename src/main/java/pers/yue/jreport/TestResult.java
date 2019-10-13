@@ -3,6 +3,8 @@
  */
 package pers.yue.jreport;
 
+import pers.yue.jreport.util.ReportUtil;
+
 public class TestResult {
     private String id;
     private String name;

@@ -1,5 +1,5 @@
 /**
- * Created by Zhang Yue on 2/4/2018
+ * Created by Zhang Yue on 8/29/2019
  */
 package pers.yue.jreport.listener;
 
@@ -17,16 +17,16 @@ import java.util.Map;
 /**
  * Generates test report at the end of test.
  */
-public class TestNgReportListener implements IReporter {
+public class TestNgCompactReportListener implements IReporter {
     private static Logger logger = LoggerFactory.getLogger(ThreadUtil.getClassName());
     public static final String OUTPUT_DIRECTORY = "report";
-    public static final String OUTPUT_FILE = "index.html";
+    public static final String OUTPUT_FILE = "email.html";
 
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
         Map<String, TestPackageResult> testResults = new TestNgResultCollector(suites).collect();
 
         String suiteName = suites.get(0).getName();
-        TestReport testReport = new HtmlTestReport(suiteName, testResults, TestEnvHandover.get(), OUTPUT_DIRECTORY);
+        TestReport testReport = new HtmlCompactTestReport(suiteName, testResults, TestEnvHandover.get(), OUTPUT_DIRECTORY);
         testReport.generate().publish(OUTPUT_FILE);
     }
 }

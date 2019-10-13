@@ -25,5 +25,5 @@ public interface TestReport {
     /**
      * Publish the test report.
      */
-    void publish();
+    void publish(String outputFile);
 }

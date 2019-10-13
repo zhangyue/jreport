@@ -1,15 +1,16 @@
 /**
  * Created by Zhang Yue on 2/11/2018
  */
-package pers.yue.jreport;
+package pers.yue.jreport.util;
 
-import pers.yue.jreport.util.ThreadUtil;
 import org.dom4j.DocumentHelper;
 import org.dom4j.io.HTMLWriter;
 import org.dom4j.io.OutputFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestResult;
+import pers.yue.jreport.exceptions.runtime.TestRunException;
+import pers.yue.jreport.util.ThreadUtil;
 
 import java.io.StringWriter;
 
@@ -22,7 +23,7 @@ public class ReportUtil {
             case ITestResult.SUCCESS: testStatusString = "PASS"; break;
             case ITestResult.FAILURE: testStatusString = "FAIL"; break;
             case ITestResult.SKIP: testStatusString = "SKIP"; break;
-            default: throw new RuntimeException("Invalid status");
+            default: throw new TestRunException("Invalid status");
         }
         return testStatusString;
     }
@@ -33,7 +34,7 @@ public class ReportUtil {
             case ITestResult.SUCCESS: testStatusString = "<font color='green'>PASS</font>"; break;
             case ITestResult.FAILURE: testStatusString = "<font color='red'>FAIL</font>"; break;
             case ITestResult.SKIP: testStatusString = "<font color='olive'>SKIP</font>"; break;
-            default: throw new RuntimeException("Invalid status");
+            default: throw new TestRunException("Invalid status");
         }
         return testStatusString;
     }
@@ -68,7 +69,7 @@ public class ReportUtil {
             return writer.toString();
         } catch (Exception e) {
             logger.error("Exception when format html string.");
-            throw new RuntimeException(e);
+            throw new TestRunException(e);
         }
     }
 }

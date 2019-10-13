@@ -133,7 +133,7 @@ public class TestNgResultCollector implements TestResultCollector {
                         int i = 0;
                         i < testResultsByClass.get(testNgResult.getTestClass().getRealClass().getName()).length;
                         i++
-                        ) {
+                ) {
                     testResultsByClass.get(testNgResult.getTestClass().getRealClass().getName())[i] = new ArrayList<>();
                 }
             }

@@ -28,13 +28,45 @@ public class ThreadUtil {
     }
 
     public static void sleep(long sleepTime, TimeUnit timeUnit) {
+        if(sleepTime == 0) {
+            return;
+        }
+
         logger.info("Sleep {} {}.", sleepTime, timeUnit);
         try {
             Thread.sleep(timeUnit.toMillis(sleepTime));
         } catch (InterruptedException e) {
-            logger.info("Sleep interupted");
+            logger.info("Sleep interrupted");
         }
     }
 
+    public static <T> T requireNonNull(T obj) {
+        if (obj == null) {
+            throwRuntimeException("Null object found but non-null object required.");
+        }
+        return obj;
+    }
 
+    public static void throwRuntimeException(Exception e, String message) {
+        try {
+            throw e;
+        } catch (Throwable t) {
+            logger.error(message, e);
+            if(e instanceof RuntimeException) {
+                throw (RuntimeException)e;
+            } else {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void throwRuntimeException(String message) {
+        logger.error(message);
+        throw new RuntimeException(message);
+    }
+
+    public static void throwRuntimeException(Exception e) {
+        logger.error(e.getMessage(), e);
+        throw new RuntimeException(e);
+    }
 }

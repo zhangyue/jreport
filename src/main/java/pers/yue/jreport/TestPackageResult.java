@@ -64,11 +64,9 @@ public class TestPackageResult {
             startTimeInMillis = startTimeInMillis == 0
                     ? testClassResult.getStartTimeInMillis() : startTimeInMillis;
 
-            startTimeInMillis = startTimeInMillis < testClassResult.getStartTimeInMillis()
-                    ? startTimeInMillis : testClassResult.getStartTimeInMillis();
+            startTimeInMillis = Math.min(startTimeInMillis, testClassResult.getStartTimeInMillis());
 
-            endTimeInMillis = endTimeInMillis > testClassResult.getEndTimeInMillis()
-                    ? endTimeInMillis : testClassResult.getEndTimeInMillis();
+            endTimeInMillis = Math.max(endTimeInMillis, testClassResult.getEndTimeInMillis());
 
             totalNumOfTests += testClassResult.getTotalNumOfTest();
 

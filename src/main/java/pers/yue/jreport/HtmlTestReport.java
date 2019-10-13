@@ -3,12 +3,13 @@
  */
 package pers.yue.jreport;
 
-import pers.yue.jreport.envinfo.EnvInfo;
-import pers.yue.jreport.util.DateUtil;
-import pers.yue.jreport.util.ThreadUtil;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pers.yue.jreport.envinfo.EnvInfo;
+import pers.yue.jreport.util.DateUtil;
+import pers.yue.jreport.util.ReportUtil;
+import pers.yue.jreport.util.ThreadUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,30 +18,29 @@ import java.util.*;
 
 /**
  * Publishes test report into HTML format.
+ *
+ * Created by Zhang Yue on 2/11/2018
  */
 public class HtmlTestReport extends AbstractTestReport implements TestReport {
     private static Logger logger = LoggerFactory.getLogger(ThreadUtil.getClassName());
 
     private String html;
     private String summary;
-    private String outputDirectoryName;
-    private final String HTML_FILE_NAME = "index.html";
-    private final String SUMMARY_FILE_NAME = "summary";
+    String outputDirectoryName;
+    private final static String SUMMARY_FILE_NAME = "summary";
 
-    private final String GIT_LAB_URL_PREFIX
-            = "http://git.jd.com/cloud-storage/oss-test/blob/master/jss_test/src/main/java/";
-    private final String TEST_JOURNAL_PATH_TO_FILE
-            = ".." + File.separator + "log" + File.separator + "jss_test.log";
-    private final String TEST_RESULT_ARCHIVE_LINK = "http://git.jd.com/cloud-storage/jdcloud-test-ci-results/tree/master/jss";
-    private final String TEST_RESULT_ARCHIVE_DISPLAY = "jdcloud-test-ci-results/jss";
+    final static String GIT_LAB_URL_PREFIX =
+            "http://foo.bar.com/cloud-storage/oss-test/blob/master/jss_test/src/main/java/";
+    private final static String TEST_JOURNAL_PATH_TO_FILE =
+            ".." + File.separator + "log" + File.separator + "test.log";
 
     public HtmlTestReport(
             String suiteName,
             Map<String, TestPackageResult> testResults,
-            EnvInfo envInfo,
+            EnvInfo testEnvInfo,
             String outputDirectoryName
     ) {
-        super(suiteName, testResults, envInfo);
+        super(suiteName, testResults, testEnvInfo);
         this.outputDirectoryName = outputDirectoryName;
     }
 
@@ -50,8 +50,9 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
         return this;
     }
 
-    public void publish() {
-        publishHtml();
+    @Override
+    public void publish(String outputFile) {
+        publishHtml(outputFile);
     }
 
     private String generateHtml() {
@@ -80,12 +81,7 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
                 "a.source {text-decoration: none}\n" +
                 "</style>";
 
-        StringBuilder htmlBuilder = new StringBuilder("<!DOCTYPE html>\n");
-        htmlBuilder.append("<html>\n");
-        htmlBuilder.append("<head>\n").append(head).append("</head>\n");
-        htmlBuilder.append("<body>\n").append(body).append("</body>\n");
-        htmlBuilder.append("</html>\n");
-        return htmlBuilder.toString();
+        return "<!DOCTYPE html>\n<html>\n<head>\n" + head + "</head>\n<body>\n" + body + "</body>\n</html>\n";
     }
 
     private String generateEnvInfo() {
@@ -94,21 +90,21 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
         sb.append("<hr align=left width=1200>\n");
 
         sb.append("<table border=0 width=1200 cellspacing=1>\n");
-        sb.append(generateEnvLine("IP", envInfo == null ? null : envInfo.getIpInfo(), true));
-        sb.append(generateEnvLine("Endpoint", envInfo == null ? null : envInfo.getEndpointInfo(), true));
+        sb.append(generateEnvLine("IP", testEnvInfo == null ? null : testEnvInfo.getIpInfo(), true));
+        sb.append(generateEnvLine("Endpoint", testEnvInfo == null ? null : testEnvInfo.getEndpointInfo(), true));
         // User info is not necessary for now.
-//        sb.append(generateEnvLine("User", envInfo.getUserInfo(), false));
-        sb.append(generateEnvLine("Configuration", envInfo == null ? null : envInfo.getConfigInfo()));
-        sb.append(generateEnvLine("JSS Branch", "$jss_branch"));
-        sb.append(generateEnvLine("Test Journal", "<a href='" + TEST_JOURNAL_PATH_TO_FILE + "'>jss_test.log</a>"));
-        sb.append(generateEnvLine("CI Test Result Archive", "<a href='" + TEST_RESULT_ARCHIVE_LINK + "' target=_blank>" + TEST_RESULT_ARCHIVE_DISPLAY + "</a>"));
+//        sb.append(generateEnvLine("User", testEnvInfo.getUserInfo(), false));
+        sb.append(generateEnvLine("Test configuration", testEnvInfo == null ? null : mapToPrintableList(testEnvInfo.getConfigInfo(),4), true));
+        sb.append(generateEnvLine("Ark info", "Application: $application | Branch: $branch | Version: $version"));
+        sb.append(generateEnvLine("Test code branch", "$test_code_branch"));
+        sb.append(generateEnvLine("Test Journal", "<a href='" + TEST_JOURNAL_PATH_TO_FILE + "'>Test Log</a>"));
         sb.append("</table>");
 
         return sb.toString();
     }
 
     private String generateEnvLine(String name, String value) {
-        return  generateEnvLine(name, Arrays.asList(value), true);
+        return  generateEnvLine(name, Collections.singletonList(value), true);
     }
 
     private String generateEnvLine(String name, List<String> values, boolean singleRow) {
@@ -216,29 +212,16 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
         return sb.toString();
     }
 
-    private String generateDetail() {
+    String generateDetail() {
         StringBuilder sb = new StringBuilder();
 
         for(TestPackageResult testPackageResult : testPackageResults.values()) {
             /*
             Test class banner.
              */
-            sb.append("<hr align=left width=1200>\n");
-            sb.append("<table border=0 width=1200 cellspacing=1>\n");
-            sb.append("<tr>\n");
-            sb.append("  <td class='packagebanner'>")
-                    .append("<a name='" + testPackageResult.getTestPackageName() + "'>")
-                    .append(testPackageResult.getTestPackageName())
-                    .append("</a>")
-                    .append("</td>\n");
-            sb.append("  <td align=right>")
-                    .append(DateUtil.formatTime(
-                            testPackageResult.getStartTimeInMillis(),
-                            DateUtil.FORMAT_SIMPLE, TimeZone.getTimeZone("GMT+8")))
-                    .append("</td>\n");
-            sb.append("</tr>\n");
-            sb.append("</table>\n");
-            sb.append("<hr align=left width=1200>\n");
+            generateClassBanner(sb, testPackageResult);
+
+            int numOmittedPassedCases = 0;
 
             /*
             Test case detail table.
@@ -263,11 +246,13 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
                             testResult.getStartTimeInMillis(), testResult.getEndTimeInMillis());
 
                     sb.append("<tr>");
+                    sb.append("  <td width=5%>").append(statusWithColor).append("</td>");
                     sb.append("  <td width=80%>").append(testNameHref).append("</td>");
-                    sb.append("  <td width=10%>").append(statusWithColor).append("</td>");
+                    sb.append("  <td width=5%>").append(statusWithColor).append("</td>");
                     sb.append("  <td width=10% align=right>").append(duration).append("</td>");
                     sb.append("</tr>\n");
                 }
+                numOmittedPassedCases += testClassResult.getPassedTestResults().size();
             }
             sb.append("</table>\n");
         }
@@ -275,10 +260,29 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
         return sb.toString();
     }
 
-    private void publishHtml() {
-        logger.info("Report file: {}", outputDirectoryName + File.separator + HTML_FILE_NAME);
+    void generateClassBanner(StringBuilder sb, TestPackageResult testPackageResult) {
+        sb.append("<hr align=left width=1200>\n");
+        sb.append("<table border=0 width=1200 cellspacing=1>\n");
+        sb.append("<tr>\n");
+        sb.append("  <td class='packagebanner'>")
+                .append("<a name='").append(testPackageResult.getTestPackageName()).append("'>")
+                .append(testPackageResult.getTestPackageName())
+                .append("</a>")
+                .append("</td>\n");
+        sb.append("  <td align=right>")
+                .append(DateUtil.formatTime(
+                        testPackageResult.getStartTimeInMillis(),
+                        DateUtil.FORMAT_SIMPLE, TimeZone.getTimeZone("GMT+8")))
+                .append("</td>\n");
+        sb.append("</tr>\n");
+        sb.append("</table>\n");
+        sb.append("<hr align=left width=1200>\n");
+    }
 
-        writeToFile(outputDirectoryName, HTML_FILE_NAME, html);
+    private void publishHtml(String outputFile) {
+        logger.info("Report file: {}", outputDirectoryName + File.separator + outputFile);
+
+        writeToFile(outputDirectoryName, outputFile, html);
         writeToFile(outputDirectoryName, SUMMARY_FILE_NAME, getResultSummary() + "\n");
     }
 
@@ -291,6 +295,38 @@ public class HtmlTestReport extends AbstractTestReport implements TestReport {
             FileUtils.writeStringToFile(outputFile, content, Charset.defaultCharset());
         } catch (IOException e) {
             logger.error("Exception when write to file {}.", outputFile.getPath(), e);
+        }
+    }
+
+    private static List<String> mapToPrintableList(Map<String, String> map, int numEntryPerNode) {
+        int numEntry = 0;
+        List<String> list = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        int count = 0;
+        for(Map.Entry<String, String> e : map.entrySet()) {
+            count++;
+            sb.append(e.getKey()).append(": ").append(e.getValue()).append(" | ");
+            if (++numEntry == numEntryPerNode || count == map.size()) {
+                list.add(sb.toString().substring(0, sb.length() - 3)); // substring: trim the last " |"
+                sb = new StringBuilder();
+                numEntry = 0;
+            }
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        Map<String, String> map = new LinkedHashMap<String, String>() {{
+            put("Application", "jss-cloud-storage");
+            put("Branch", "develop");
+            put("Test code branch", "develop");
+            put("k4", "v4");
+            put("k5", "v5");
+        }};
+
+        List<String> list = mapToPrintableList(map, 3);
+        for(String s : list) {
+            System.out.println(s);
         }
     }
 }
